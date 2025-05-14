@@ -27,7 +27,7 @@ uploaded_file = st.file_uploader(
 if uploaded_file is not None:
     # Display the uploaded image
     image = Image.open(uploaded_file)
-    st.image(image, caption='Uploaded Image', use_container_width=True)
+    st.image(image, caption='Uploaded Image', use_column_width=True)  # تعديل بسيط هنا
     
     # Preprocess the image for model input
     img = image.resize((150, 150)) 
@@ -44,4 +44,3 @@ if uploaded_file is not None:
         st.success(f'Prediction: Dog 🐶 (Confidence: {confidence*100:.1f}%)')
     else:
         st.success(f'Prediction: Cat 🐱 (Confidence: {confidence*100:.1f}%)')
-   
