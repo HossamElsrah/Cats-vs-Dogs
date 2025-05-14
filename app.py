@@ -3,14 +3,27 @@ import streamlit as st
 from PIL import Image 
 import numpy as np  
 import tensorflow as tf 
+import os
 
-# Cache the model loading
+MODEL_PATH = 'dogs_vs_cats_model.h5'
+if not os.path.exists(MODEL_PATH):
+    st.error(f"Model file not found at: {os.path.abspath(MODEL_PATH)}")
+    st.stop()
+
 @st.cache_resource  
-def load_custom_model():
-    """Load .h5 model"""
-    return tf.keras.models.load_model('dogs_vs_cats_model.h5') 
+def load_model():
+    try:
+        
+        with tf.keras.utils.custom_object_scope({}):
+            return tf.keras.models.load_model(MODEL_PATH, compile=False)
+    except Exception as e:
+        st.error(f"Failed to load model: {str(e)}")
+        return None
 
-model = load_custom_model() 
+model = load_model()
+
+if model is None:
+    st.stop()
 
 # Configure the web app interface
 st.title('🐱 Cat vs Dog Classifier 🐶')
