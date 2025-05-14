@@ -5,7 +5,7 @@ import numpy as np
 import tensorflow as tf 
 import os
 
-MODEL_PATH = 'https://github.com/HossamElsrah/Cats-vs-Dogs/blob/main/dogs_vs_cats_model.h5'
+MODEL_PATH = 'dogs_vs_cats_model.h5'
 if not os.path.exists(MODEL_PATH):
     st.error(f"Model file not found at: {os.path.abspath(MODEL_PATH)}")
     st.stop()
