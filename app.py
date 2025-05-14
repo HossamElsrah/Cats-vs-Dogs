@@ -2,13 +2,14 @@
 import streamlit as st 
 from PIL import Image 
 import numpy as np  
+from keras.models import load_model
 import tensorflow as tf 
 
 # Cache the model loading to avoid reloading on every interaction
 @st.cache_resource  
 def load_model():
     """Load and return the pre-trained Keras model"""
-    return tf.keras.models.load_model('dogs_vs_cats_model.h5')  
+    return load_model('dogs_vs_cats_model.h5')
 
 # Load the model
 model = load_model()
