@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Cat vs Dog Classifier 🐱 vs 🐶  
 **Best Model: Custom CNN (98% Train / 96% Val Accuracy)**  
 *Outperformed VGG16 transfer learning (92% both)*  
@@ -77,4 +76,3 @@ streamlit run app.py
 ```
 =======
 # Cats-vs-Dogs
->>>>>>> 68213e7bd3d39576734d1834970aac87678d8c76
