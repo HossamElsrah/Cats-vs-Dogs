@@ -5,11 +5,6 @@ import numpy as np
 import tensorflow as tf 
 import os
 
-if os.path.exists('dogs_vs_cats_model.h5'):
-    print("Model file found!")
-else:
-    print("Model file not found!")
-
 # Cache the model loading to avoid reloading on every interaction
 @st.cache_resource  
 def load_model():
