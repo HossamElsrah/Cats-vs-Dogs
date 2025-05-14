@@ -5,6 +5,10 @@ import numpy as np
 import tensorflow as tf 
 import os
 
+
+import os
+print(os.getcwd())
+
 # Cache the model loading to avoid reloading on every interaction
 @st.cache_resource  
 def load_model():
