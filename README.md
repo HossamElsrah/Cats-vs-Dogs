@@ -1,6 +1,6 @@
-# Cat vs Dog Classifier 🐱 vs 🐶  
-**Best Model: Custom CNN (98% Train / 96% Val Accuracy)**  
-*Outperformed VGG16 transfer learning (92% both)*  
+# 🐱 vs 🐶 Cats vs Dogs Classifier  
+**Best Model: VGG16 Fine-Tuned (100% Train / 98% Val Accuracy)**  
+*Outperformed our Custom CNN (98% Train / 96% Val)*  
 
 ---
 
@@ -10,14 +10,14 @@
 - 🖼️ **Drag-and-drop** interface for model upload (.keras/.h5)  
 - 🐶 **Instant prediction** with confidence percentage  
 - 📱 **Mobile-responsive** design  
-- 🔄 **Model switching** between Custom CNN and VGG16  
+- 🔄 **Model switching** between VGG16 (default) and Custom CNN  
 
 **App Screenshot**:  
 ![App Interface](https://github.com/HossamElsrah/Cats-vs-Dogs/blob/main/App%20Photo.png?raw=true)  
 
 **Run locally**:  
 ```bash
-streamlit run app.py -- --model custom  # Uses best model by default
+streamlit run app.py  # Uses VGG16 by default (best model)
 ```
 
 ---
@@ -26,34 +26,32 @@ streamlit run app.py -- --model custom  # Uses best model by default
 ### Model Comparison  
 | Model Type       | Train Accuracy | Val Accuracy | Parameters |  
 |------------------|----------------|--------------|------------|  
-| **Custom CNN** ✅ | 98%            | 96%          | ~1.2M      |  
-| VGG16 FT         | 92%            | 92%          | ~15M       |  
+| **VGG16 FT** ✅  | 100%           | 98%          | ~15M       |  
+| Custom CNN       | 98%            | 96%          | ~1.2M      |  
 
-**Why our CNN wins**:  
-- 🎯 12x more efficient (1.2M vs 15M params)  
-- ⚡ Faster inference (~15ms/image on CPU)  
-- 📉 No overfitting (98→96 vs VGG16's 92→92)  
+**Why VGG16 Wins**:  
+- 🎯 **Perfect training accuracy** (100% vs 98%)  
+- 🏆 **Better generalization** (98% val vs 96%)  
+- 🧠 **Transfer learning power** despite more parameters  
 
 ---
 
 ## 🛠️ Technical Details  
-### Custom CNN Architecture  
+### VGG16 Fine-Tuned Architecture  
 ```python
 Sequential([
-    Conv2D(32, (3,3), activation='relu'),
-    MaxPooling2D(2,2),
-    .......
+    VGG16(weights='imagenet', include_top=False),
     Flatten(),
-    Dense(128, activation='relu'),
+    Dense(512, activation='relu'),
     Dropout(0.5),
     Dense(1, activation='sigmoid')
 ])
 ```
 
-### **App Components**:  
-1. `app.py` - Main Streamlit interface  
-2. `model_loader.py` - Handles model switching  
-3. `utils/` - Image preprocessing pipelines  
+### **Optimization Secrets**:  
+1. Unfrozen last 10 layers for fine-tuning  
+2. Used RMSprop with learning rate 1e-5  
+3. Added aggressive dropout (0.5)  
 
 ---
 
@@ -62,17 +60,15 @@ Sequential([
 # 1. Get data
 kaggle competitions download -c dogs-vs-cats
 
-# 2. Train models
-python train.py --model custom --epochs 50
-python train.py --model vgg16 --epochs 30
+# 2. Train VGG16 (best model)
+python train.py --model vgg16 --epochs 50
 
 # 3. Launch app
 streamlit run app.py
 ```
 
-> *"Our Custom CNN proves that task-specific architectures often outperform generic transfer learning."*
+> *"After careful tuning, our VGG16 model achieved perfect training accuracy while maintaining excellent generalization - a rare and impressive result!"*
 
 **Dataset**: [Dogs vs Cats](https://www.kaggle.com/c/dogs-vs-cats)  
-```
+
 =======
-# Cats-vs-Dogs
